@@ -1,0 +1,114 @@
+/* ============================================
+   MIKANS – Design System Variables
+   ============================================ */
+
+:root {
+  /* Brand Colors */
+  --color-primary: #2563eb;
+  --color-primary-hover: #1d4ed8;
+  --color-primary-light: #dbeafe;
+  --color-primary-dark: #1e40af;
+
+  --color-secondary: #6366f1;
+  --color-secondary-hover: #4f46e5;
+  --color-secondary-light: #e0e7ff;
+
+  --color-accent: #0ea5e9;
+  --color-accent-light: #e0f2fe;
+
+  /* Semantic Colors */
+  --color-success: #16a34a;
+  --color-success-light: #dcfce7;
+  --color-warning: #d97706;
+  --color-warning-light: #fef3c7;
+  --color-danger: #dc2626;
+  --color-danger-light: #fee2e2;
+  --color-info: #0284c7;
+  --color-info-light: #e0f2fe;
+
+  /* Neutrals */
+  --color-gray-50: #f8fafc;
+  --color-gray-100: #f1f5f9;
+  --color-gray-200: #e2e8f0;
+  --color-gray-300: #cbd5e1;
+  --color-gray-400: #94a3b8;
+  --color-gray-500: #64748b;
+  --color-gray-600: #475569;
+  --color-gray-700: #334155;
+  --color-gray-800: #1e293b;
+  --color-gray-900: #0f172a;
+
+  /* Sidebar */
+  --sidebar-bg: #0f172a;
+  --sidebar-width: 260px;
+  --sidebar-color: #94a3b8;
+  --sidebar-color-active: #f8fafc;
+  --sidebar-item-hover-bg: rgba(255,255,255,0.06);
+  --sidebar-item-active-bg: rgba(37, 99, 235, 0.25);
+  --sidebar-border: rgba(255,255,255,0.06);
+
+  /* Header */
+  --header-height: 64px;
+  --header-bg: #ffffff;
+  --header-border: var(--color-gray-200);
+  --header-shadow: 0 1px 3px rgba(0,0,0,0.06);
+
+  /* Surface */
+  --surface-bg: #f8fafc;
+  --card-bg: #ffffff;
+  --card-radius: 12px;
+  --card-shadow: 0 1px 3px rgba(0,0,0,0.07), 0 1px 2px rgba(0,0,0,0.04);
+  --card-shadow-hover: 0 4px 12px rgba(0,0,0,0.10);
+  --card-border: 1px solid var(--color-gray-200);
+
+  /* Typography */
+  --font-sans: 'Inter', 'Noto Sans JP', sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  --text-xs:   0.75rem;   /* 12px */
+  --text-sm:   0.875rem;  /* 14px */
+  --text-base: 1rem;      /* 16px */
+  --text-lg:   1.125rem;  /* 18px */
+  --text-xl:   1.25rem;   /* 20px */
+  --text-2xl:  1.5rem;    /* 24px */
+  --text-3xl:  1.875rem;  /* 30px */
+
+  --font-light:  300;
+  --font-normal: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold:   700;
+
+  /* Spacing */
+  --space-1:  0.25rem;
+  --space-2:  0.5rem;
+  --space-3:  0.75rem;
+  --space-4:  1rem;
+  --space-5:  1.25rem;
+  --space-6:  1.5rem;
+  --space-8:  2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+
+  /* Border Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+
+  /* Transitions */
+  --transition-fast:   all 0.15s ease;
+  --transition-normal: all 0.25s ease;
+  --transition-slow:   all 0.35s ease;
+
+  /* Z-index Layers */
+  --z-dropdown: 1000;
+  --z-sticky:   1020;
+  --z-fixed:    1030;
+  --z-overlay:  1040;
+  --z-modal:    1050;
+  --z-popover:  1060;
+  --z-tooltip:  1070;
+}
