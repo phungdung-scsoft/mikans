@@ -71,7 +71,6 @@
         <div class="card">
           <div class="card-header flex justify-between items-center">
             <h3 class="font-semibold">マスタ構成 (Master Configuration)</h3>
-            <router-link :to="`/admin/tenants/${customerId}/setup/masters/create`" class="btn btn-primary btn-sm">＋ マスタ追加</router-link>
           </div>
           <div class="card-body">
             <p class="text-sm text-muted mb-4">ダイナミックマスタの定義を行います。</p>
@@ -82,7 +81,6 @@
                   <th>マスタ名</th>
                   <th>フィールド数</th>
                   <th>ステータス</th>
-                  <th>操作</th>
                 </tr>
               </thead>
               <tbody>
@@ -91,9 +89,6 @@
                   <td>{{ master.name }}</td>
                   <td>{{ master.fields.length }}</td>
                   <td><span class="badge bg-success">有効</span></td>
-                  <td>
-                    <router-link :to="`/admin/tenants/${customerId}/setup/masters/${master.id}/settings`" class="btn btn-outline btn-sm">構成</router-link>
-                  </td>
                 </tr>
                 <tr v-if="!mastersStore.masters.length">
                   <td colspan="5" class="text-center text-muted p-4">マスタがありません</td>

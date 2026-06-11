@@ -1,6 +1,6 @@
 <template>
   <div class="master-builder animate-fade-in">
-    <router-link :to="`/admin/tenants/${customerId}/setup`" class="back-link">← セットアップに戻る</router-link>
+    <router-link to="/tenant/masters" class="back-link">← マスタ一覧</router-link>
     <h2 class="text-xl font-semibold mt-2 mb-6">{{ isNew ? '新しいマスタを作成' : `「${master?.name}」の設定` }}</h2>
 
     <!-- Step 1: Master name (new only) -->
@@ -78,8 +78,8 @@
       </div>
 
       <div class="flex justify-end mt-4">
-        <router-link :to="`/admin/tenants/${customerId}/setup`" class="btn btn-primary">
-          保存して戻る
+        <router-link :to="`/tenant/masters/${master.id}`" class="btn btn-primary">
+          レコード一覧を見る →
         </router-link>
       </div>
     </div>
@@ -97,13 +97,12 @@ const mastersStore = useMastersStore()
 
 const isNew = computed(() => route.path.endsWith('/create'))
 const master = computed(() => isNew.value ? null : mastersStore.getMaster(route.params.masterId))
-const customerId = computed(() => route.params.id)
 const newMasterName = ref('')
 
 function createMaster() {
   if (!newMasterName.value.trim()) return
   const m = mastersStore.createMaster({ name: newMasterName.value })
-  router.replace(`/admin/tenants/${customerId.value}/setup/masters/${m.id}/settings`)
+  router.replace(`/tenant/masters/${m.id}/settings`)
 }
 
 function addField() {

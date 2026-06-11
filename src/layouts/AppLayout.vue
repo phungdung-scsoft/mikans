@@ -129,7 +129,7 @@ const tenantNavSections = computed(() => {
   })
 
   const masterItems = []
-  if (enabled.includes('custom_master')) masterItems.push({ to: '/tenant/masters', icon: '🗂️', label: 'マスタ参照' })
+  if (enabled.includes('custom_master')) masterItems.push({ to: '/tenant/masters', icon: '🗂️', label: 'マスタ設定' })
   if (enabled.includes('product_master')) masterItems.push({ to: '/tenant/products', icon: '📦', label: '商品管理' })
   if (masterItems.length) sections.push({ label: 'マスタ管理', items: masterItems })
 
@@ -166,7 +166,7 @@ const PAGE_TITLES = {
   '/tenant/company': '会社設定',
   '/tenant/departments': '部門管理',
   '/tenant/users': 'ユーザー管理',
-  '/tenant/masters': 'マスタ参照',
+  '/tenant/masters': 'マスタ設定',
   '/tenant/products': '商品管理',
   '/tenant/quotation-settings': '見積フォーマット設定',
   '/tenant/quotations': '見積一覧',

@@ -1,0 +1,639 @@
+{
+	"info": {
+		"_postman_id": "1a09ab76-7c7f-4bf1-b656-7f79f466781a",
+		"name": "mikans",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38516902"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"// Lưu token vào biến Globals để dùng được ở mọi nơi mà không cần chọn Environment",
+									"if (jsonData.data && jsonData.data.token) {",
+									"    pm.globals.set(\"token\", jsonData.data.token);",
+									"    console.log(\"Đã lưu token tự động: \" + jsonData.data.token);",
+									"}",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "// {\n//     \"email\": \"sysadmin@mikans.com\",\n//     \"password\": \"Password@123\",\n//     \"portal\": \"admin\" // BẮT BUỘC là \"admin\" đối với System Admin\n// }\n\n// {\n//     \"email\": \"tenant.admin@testcompany.com\",\n//     \"password\": \"Password@123\",\n//     \"portal\": \"user\"\n// }\n//admin_user\n\n{\n    \"email\": \"tenant.member@testcompany.com\",\n    \"password\": \"Password@123\",\n    \"portal\": \"user\"\n}\n//user",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}auth/login",
+							"host": [
+								"{{URL}}auth"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "admin_user",
+			"item": [
+				{
+					"name": "master",
+					"item": [
+						{
+							"name": "user",
+							"item": [
+								{
+									"name": "create",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"code\": \"VIP\",\n    \"name\": \"VIP\",\n    \"description\": \"Bảng quản lý VIP\",\n    \"fields\": [\n        {\n            \"code\": \"user_code\",\n            \"name\": \"ユーザーコード\",\n            \"data_type\": \"text\",\n            \"is_required\": true,\n            \"is_unique\": true,\n            \"is_import_key\": true,\n            \"sort_order\": 1\n        },\n        {\n            \"code\": \"full_name\",\n            \"name\": \"フルネーム\",\n            \"data_type\": \"text\",\n            \"is_required\": true,\n            \"sort_order\": 2\n        },\n        {\n            \"code\": \"email\",\n            \"name\": \"メールアドレス\",\n            \"data_type\": \"text\",\n            \"is_required\": true,\n            \"is_unique\": true,\n            \"sort_order\": 3\n        },\n        {\n            \"code\": \"note\",\n            \"name\": \"注記\",\n            \"data_type\": \"text\",\n            \"is_required\": false,\n            \"sort_order\": 4\n        }\n    ]\n} // create master user khong ke thua\n\n\n// {\n//     \"id\": 4,\n//     \"code\": \"users\",\n//     \"name\": \"ユーザー管理\",\n//     \"description\": \"Bảng quản lý người dùng\",\n//     \"fields\": [\n//         {\n//             \"id\": 6,\n//             \"code\": \"user_code\",\n//             \"name\": \"ユーザーコード\",\n//             \"data_type\": \"text\",\n//             \"is_required\": true,\n//             \"is_unique\": true,\n//             \"is_import_key\": true,\n//             \"sort_order\": 1\n//         },\n//         {\n//             \"id\": 7,\n//             \"code\": \"last_name\",\n//             \"name\": \"氏\",\n//             \"data_type\": \"text\",\n//             \"is_required\": true,\n//             \"sort_order\": 2\n//         },\n//         {\n//             \"id\": 8,\n//             \"code\": \"first_name\",\n//             \"name\": \"名\",\n//             \"data_type\": \"text\",\n//             \"is_required\": true,\n//             \"sort_order\": 3\n//         },\n//         {\n//             \"id\": 9,\n//             \"code\": \"email\",\n//             \"name\": \"メールアドレス\",\n//             \"data_type\": \"text\",\n//             \"is_required\": true,\n//             \"is_unique\": true,\n//             \"sort_order\": 4\n//         },\n//         {\n//             \"id\": 10,\n//             \"code\": \"department\",\n//             \"name\": \"部署\",\n//             \"data_type\": \"reference\", // CHUYỂN THÀNH REFERENCE\n//             \"is_required\": false,\n//             \"sort_order\": 5,\n//             \"metadata\": { // THÊM METADATA LIÊN KẾT\n//                 \"reference_master_code\": \"departments\",\n//                 \"reference_field_code\": \"dept_code\"\n//             }\n//         },\n//         {\n//             \"id\": 11,\n//             \"code\": \"role\",\n//             \"name\": \"権限\",\n//             \"data_type\": \"text\",\n//             \"is_required\": true,\n//             \"sort_order\": 6\n//         },\n//         {\n//             \"id\": 12,\n//             \"code\": \"remarks\",\n//             \"name\": \"備考\",\n//             \"data_type\": \"text\",\n//             \"is_required\": false,\n//             \"sort_order\": 7\n//         }\n//     ]\n// } // create master user ke thua phong ban",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{URL}}masters",
+											"host": [
+												"{{URL}}masters"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "publish",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{URL}}masters/6/publish",
+											"host": [
+												"{{URL}}masters"
+											],
+											"path": [
+												"6",
+												"publish"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "edit",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"id\": 4,\n    \"code\": \"users\",\n    \"name\": \"ユーザー管理\",\n    \"description\": \"Bảng quản lý người dùng\",\n    \"fields\": [\n        {\n            \"id\": 10,\n            \"code\": \"department\",\n            \"name\": \"部署\",\n            \"data_type\": \"text\",\n            \"is_required\": false,\n            \"is_unique\": false,\n            \"is_import_key\": false,\n            \"default_value\": null,\n            \"sort_order\": 5\n        },\n        {\n            \"id\": 9,\n            \"code\": \"email\",\n            \"name\": \"メールアドレス\",\n            \"data_type\": \"text\",\n            \"is_required\": true,\n            \"is_unique\": true,\n            \"is_import_key\": false,\n            \"default_value\": null,\n            \"sort_order\": 4\n        },\n        {\n            \"id\": 8,\n            \"code\": \"first_name\",\n            \"name\": \"名\",\n            \"data_type\": \"text\",\n            \"is_required\": true,\n            \"is_unique\": false,\n            \"is_import_key\": false,\n            \"default_value\": null,\n            \"sort_order\": 3\n        },\n        {\n            \"id\": 7,\n            \"code\": \"last_name\",\n            \"name\": \"氏\",\n            \"data_type\": \"text\",\n            \"is_required\": true,\n            \"is_unique\": false,\n            \"is_import_key\": false,\n            \"default_value\": null,\n            \"sort_order\": 2\n        },\n        {\n            \"id\": 12, // remarks giữ nguyên id 12\n            \"code\": \"remarks\",\n            \"name\": \"備考\",\n            \"data_type\": \"text\",\n            \"is_required\": false,\n            \"is_unique\": false,\n            \"is_import_key\": false,\n            \"default_value\": null,\n            \"sort_order\": 7\n        },\n        {\n            \"id\": 11,\n            \"code\": \"role\",\n            \"name\": \"権限\",\n            \"data_type\": \"text\",\n            \"is_required\": true,\n            \"is_unique\": false,\n            \"is_import_key\": false,\n            \"default_value\": null,\n            \"sort_order\": 6\n        },\n        {\n            \"id\": 6,\n            \"code\": \"user_code\",\n            \"name\": \"ユーザーコード\",\n            \"data_type\": \"text\",\n            \"is_required\": true,\n            \"is_unique\": true,\n            \"is_import_key\": true,\n            \"default_value\": null,\n            \"sort_order\": 1\n        },\n        {\n            // BỎ TRƯỜNG \"id\" VÀ \"master_id\" ở đây vì đây là trường mới\n            \"code\": \"note\",\n            \"name\": \"注記\",\n            \"data_type\": \"text\",\n            \"is_required\": false,\n            \"is_unique\": false,\n            \"is_import_key\": false,\n            \"default_value\": null,\n            \"sort_order\": 8\n        }\n    ]\n}\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{URL}}masters",
+											"host": [
+												"{{URL}}masters"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "delete",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"id\": 4,\n    \"code\": \"users\",\n    \"name\": \"ユーザー管理\",\n    \"description\": \"Bảng quản lý người dùng\",\n    \"status\": \"inactive\",\n    \"fields\": [\n        {\n            \"id\": 6,\n            \"code\": \"user_code\",\n            \"name\": \"ユーザーコード\",\n            \"data_type\": \"text\",\n            \"is_required\": true,\n            \"is_unique\": true,\n            \"is_import_key\": true,\n            \"sort_order\": 1\n        },\n        {\n            \"id\": 7,\n            \"code\": \"last_name\",\n            \"name\": \"氏\",\n            \"data_type\": \"text\",\n            \"is_required\": true,\n            \"sort_order\": 2\n        },\n        {\n            \"id\": 8,\n            \"code\": \"first_name\",\n            \"name\": \"名\",\n            \"data_type\": \"text\",\n            \"is_required\": true,\n            \"sort_order\": 3\n        },\n        {\n            \"id\": 9,\n            \"code\": \"email\",\n            \"name\": \"メールアドレス\",\n            \"data_type\": \"text\",\n            \"is_required\": true,\n            \"is_unique\": true,\n            \"sort_order\": 4\n        },\n        {\n            \"id\": 10,\n            \"code\": \"department\",\n            \"name\": \"部署\",\n            \"data_type\": \"text\",\n            \"is_required\": false,\n            \"sort_order\": 5\n        },\n        {\n            \"id\": 11,\n            \"code\": \"role\",\n            \"name\": \"権限\",\n            \"data_type\": \"text\",\n            \"is_required\": true,\n            \"sort_order\": 6\n        },\n        {\n            \"id\": 12,\n            \"code\": \"remarks\",\n            \"name\": \"備考\",\n            \"data_type\": \"text\",\n            \"is_required\": false,\n            \"sort_order\": 7\n        },\n        {\n            \"id\": 13,\n            \"code\": \"note\",\n            \"name\": \"注記\",\n            \"data_type\": \"text\",\n            \"is_required\": false,\n            \"sort_order\": 8\n        }\n    ]\n}\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{URL}}masters",
+											"host": [
+												"{{URL}}masters"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "detail",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{URL}}masters/users/schema",
+											"host": [
+												"{{URL}}masters"
+											],
+											"path": [
+												"users",
+												"schema"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "list",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{URL}}masters",
+											"host": [
+												"{{URL}}masters"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "customer",
+			"item": [
+				{
+					"name": "data user",
+					"item": [
+						{
+							"name": "user",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"user_code\": \"VIP001\",\n    \"full_name\": \"Nguyễn Văn A\",\n    \"email\": \"nguyenvana@gmail.com\",\n    \"note\": \"Khách hàng VIP vàng\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}masters/VIP/records",
+									"host": [
+										"{{URL}}masters"
+									],
+									"path": [
+										"VIP",
+										"records"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "list",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{URL}}masters/users/records",
+									"host": [
+										"{{URL}}masters"
+									],
+									"path": [
+										"users",
+										"records"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "edit",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"user_code\": \"VIP001\",\n    \"full_name\": \"Nguyễn Văn A (Đã cập nhật)\",\n    \"email\": \"nguyenvana@gmail.com\",\n    \"note\": \"Khách hàng VIP kim cương\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}masters/VIP/records/4",
+									"host": [
+										"{{URL}}masters"
+									],
+									"path": [
+										"VIP",
+										"records",
+										"4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{URL}}masters/users/records/3",
+									"host": [
+										"{{URL}}masters"
+									],
+									"path": [
+										"users",
+										"records",
+										"3"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "data department",
+					"item": [
+						{
+							"name": "create",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"dept_code\": \"D01\",\n    \"name\": \"営業\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}masters/departments/records",
+									"host": [
+										"{{URL}}masters"
+									],
+									"path": [
+										"departments",
+										"records"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{URL}}masters/departments/records/2",
+									"host": [
+										"{{URL}}masters"
+									],
+									"path": [
+										"departments",
+										"records",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "list",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{URL}}masters/departments/records",
+									"host": [
+										"{{URL}}masters"
+									],
+									"path": [
+										"departments",
+										"records"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "edit",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"dept_code\": \"D01\",\n    \"name\": \"開発\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}masters/departments/records/2",
+									"host": [
+										"{{URL}}masters"
+									],
+									"path": [
+										"departments",
+										"records",
+										"2"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "admin",
+			"item": [
+				{
+					"name": "plans",
+					"item": [
+						{
+							"name": "create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"code\": \"premium\",\n    \"name\": \"Premium Plan\",\n    \"user_limit\": 5,\n    \"quote_limit\": 5000,\n    \"storage_limit\": 20000,\n    \"status\": \"active\",\n    \"description\": \"Premium Plan for mid-size clients\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}admin/plans",
+									"host": [
+										"{{URL}}admin"
+									],
+									"path": [
+										"plans"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "tenant",
+					"item": [
+						{
+							"name": "create admin user or user to tenant",
+							"item": [
+								{
+									"name": "create",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"name\": \"Tenant member 01\",\n    \"email\": \"tenant.member01@testcompany.com\",\n    \"password\": \"Password@123\",\n    \"role\": \"member\" //\"role\": \"tenant_admin\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{URL}}admin/tenants/14/users",
+											"host": [
+												"{{URL}}admin"
+											],
+											"path": [
+												"tenants",
+												"14",
+												"users"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "create",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"code\": \"TNT_TEST\",\n    \"company_name\": \"Công ty Test SaaS\",\n    \"plan_id\": 8 // Nhập ID của plan bạn vừa tạo\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}admin/tenants",
+									"host": [
+										"{{URL}}admin"
+									],
+									"path": [
+										"tenants"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "audit logs",
+					"item": [
+						{
+							"name": "list",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}admin/audit-logs",
+									"host": [
+										"{{URL}}admin"
+									],
+									"path": [
+										"audit-logs"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

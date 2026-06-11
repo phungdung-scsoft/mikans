@@ -31,8 +31,6 @@ const routes = [
       { path: 'customers/:id', name: 'AdminCustomerDetail', component: () => import('@/views/admin/CustomerDetailView.vue') },
       { path: 'customers/:id/edit', name: 'AdminCustomerEdit', component: () => import('@/views/admin/CustomerFormView.vue') },
       { path: 'tenants/:id/setup', name: 'AdminTenantSetup', component: () => import('@/views/admin/TenantSetupView.vue') },
-      { path: 'tenants/:id/setup/masters/create', name: 'AdminMasterCreate', component: () => import('@/views/admin/MasterBuilderView.vue') },
-      { path: 'tenants/:id/setup/masters/:masterId/settings', name: 'AdminMasterSettings', component: () => import('@/views/admin/MasterBuilderView.vue') },
     ]
   },
 
@@ -51,9 +49,11 @@ const routes = [
       { path: 'users', name: 'Users', component: () => import('@/views/tenant/UsersView.vue') },
       { path: 'users/create', name: 'UserCreate', component: () => import('@/views/tenant/UserFormView.vue') },
       { path: 'users/:id/edit', name: 'UserEdit', component: () => import('@/views/tenant/UserFormView.vue') },
-      // Dynamic Masters (only records list)
+      // Dynamic Masters
       { path: 'masters', name: 'Masters', component: () => import('@/views/tenant/masters/MasterListView.vue') },
+      { path: 'masters/create', name: 'MasterCreate', component: () => import('@/views/tenant/masters/MasterBuilderView.vue') },
       { path: 'masters/:masterId', name: 'MasterRecords', component: () => import('@/views/tenant/masters/MasterRecordsView.vue') },
+      { path: 'masters/:masterId/settings', name: 'MasterSettings', component: () => import('@/views/tenant/masters/MasterBuilderView.vue') },
       // Products
       { path: 'products', name: 'Products', component: () => import('@/views/tenant/products/ProductListView.vue') },
       { path: 'products/create', name: 'ProductCreate', component: () => import('@/views/tenant/products/ProductFormView.vue') },
